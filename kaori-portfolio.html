@@ -188,7 +188,13 @@
       border-radius: var(--rl); padding: 24px 20px; transition: border-color .2s;
     }
     .skill-card:hover { border-color: var(--g400); }
-    .skill-icon { font-size: 26px; margin-bottom: 10px; display: block; }
+    .skill-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px; flex-shrink: 0;
+    }
+    .skill-icon svg { width: 20px; height: 20px; stroke: var(--white); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
     .skill-title { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
     .skill-desc { font-size: 12px; color: var(--g600); line-height: 1.75; }
 
@@ -393,10 +399,9 @@
             </div>
           </div>
           <p class="about-text">
-            2児を育てながら、AIを活用した発信の仕組み化に取り組むコンテンツクリエイター。<br><br>
-            Threadsとnoteを軸に、副業・SNS運用の設計を毎日発信。
-            開始7ヶ月でフォロワー9,000人・note総売上500万円を達成。<br><br>
-            「続けなくても稼げる仕組み」をテーマに、個人・企業のAI活用・SNS運用をサポートしています。
+            本業マネジメント×2児のママ。SNSは「見る専」だった私が、育児の隙間時間だけでここまできました。<br><br>
+            フォロワー0・副業経験ゼロからのスタート。「情報を届ける」より<strong>「自分のファンをつくる」</strong>ことに気づいてから、全部変わりました。<br><br>
+            忙しいママでも、不器用な人でも、仕組みさえ整えれば稼げる——そのリアルを発信し続けています。
           </p>
           <div class="chips">
             <span class="chip">２児のワーママ</span>
@@ -426,22 +431,30 @@
       <h2 class="sec-title reveal d1">できること</h2>
       <div class="skills-grid">
         <div class="skill-card reveal">
-          <span class="skill-icon">🤖</span>
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 6V4M12 6V4M15 6V4M9 18v2M12 18v2M15 18v2M6 9H4M6 12H4M6 15H4M18 9h2M18 12h2M18 15h2"/></svg>
+          </div>
           <div class="skill-title">AI活用・仕組み化</div>
           <p class="skill-desc">AIツールを活用した業務・副業の自動化と仕組み設計</p>
         </div>
         <div class="skill-card reveal d1">
-          <span class="skill-icon">✍️</span>
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/><path d="M19.5 7.125L16.862 4.487"/></svg>
+          </div>
           <div class="skill-title">コンテンツ設計</div>
           <p class="skill-desc">読まれる・売れるnote記事の企画・構成・制作</p>
         </div>
         <div class="skill-card reveal d2">
-          <span class="skill-icon">📱</span>
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><path d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
+          </div>
           <div class="skill-title">SNS運用設計</div>
           <p class="skill-desc">Threadsを軸としたフォロワーを伸ばすSNS戦略</p>
         </div>
         <div class="skill-card reveal d3">
-          <span class="skill-icon">💡</span>
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
+          </div>
           <div class="skill-title">副業サポート</div>
           <p class="skill-desc">育児・仕事をしながら稼ぎ続けられる副業モデルの構築</p>
         </div>
