@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaori Kamiyama | ポートフォリオ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark:    #0D0908;
+      --dark2:   #160E0A;
+      --card:    #201410;
+      --card2:   #2A1B14;
+      --accent:  #F97316;
+      --accent2: #FBBF24;
+      --rose:    #EC4899;
+      --cream:   #FFF7ED;
+      --mid:     rgba(255,247,237,0.65);
+      --low:     rgba(255,247,237,0.35);
+      --grad:    linear-gradient(135deg, #F97316, #FBBF24);
+      --grad2:   linear-gradient(135deg, #EC4899, #F97316);
+      --glow:    rgba(249,115,22,0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--dark);
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.4;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 48px;
+      background: rgba(13,9,8,0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(249,115,22,0.08);
+      transition: padding 0.3s;
+    }
+
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; letter-spacing: 3px;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--mid); text-decoration: none; transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative; z-index: 1;
+      min-height: 100svh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 120px 40px 100px;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 25%, rgba(249,115,22,0.14) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 40% at 15% 80%, rgba(236,72,153,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 35% 30% at 85% 70%, rgba(251,191,36,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* decorative rings */
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      border: 1px solid rgba(249,115,22,0.06);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      box-shadow:
+        0 0 0 140px rgba(249,115,22,0.03),
+        0 0 0 280px rgba(249,115,22,0.015);
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 999px;
+      padding: 8px 22px;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 40px;
+      position: relative;
+      animation: fadeDown 0.8s ease both;
+    }
+
+    .hero-eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .hero-name-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(60px, 11vw, 128px);
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -3px;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      position: relative;
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+
+    .hero-name-ja {
+      display: block;
+      font-size: clamp(15px, 2vw, 22px);
+      font-weight: 300; letter-spacing: 10px;
+      color: var(--mid);
+      margin-top: 8px; margin-bottom: 36px;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+
+    .hero-tag-row {
+      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 48px;
+      animation: fadeUp 0.9s 0.3s ease both;
+    }
+
+    .hero-tag {
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 999px;
+      padding: 6px 18px;
+      font-size: 12px; color: var(--mid);
+    }
+
+    .hero-stats {
+      display: flex; gap: 0; align-items: stretch;
+      background: rgba(255,247,237,0.03);
+      border: 1px solid rgba(249,115,22,0.12);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 52px;
+      animation: fadeUp 0.9s 0.4s ease both;
+    }
+
+    .hero-stat {
+      padding: 28px 44px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-stat:not(:last-child)::after {
+      content: '';
+      position: absolute; right: 0; top: 20%; height: 60%; width: 1px;
+      background: rgba(249,115,22,0.12);
+    }
+
+    .hero-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 600; line-height: 1;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      display: block; margin-bottom: 6px;
+    }
+
+    .hero-stat-label {
+      font-size: 11px; letter-spacing: 1px; color: var(--low);
+      display: block; line-height: 1.5;
+    }
+
+    .hero-cta-row {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.9s 0.5s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--grad);
+      color: #fff; font-weight: 700; font-size: 13px; letter-spacing: 2px;
+      padding: 16px 40px; border-radius: 999px; border: none;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 8px 36px rgba(249,115,22,0.35);
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 48px rgba(249,115,22,0.45); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      color: var(--cream); font-size: 13px; letter-spacing: 2px;
+      padding: 15px 40px; border-radius: 999px;
+      border: 1.5px solid rgba(255,247,237,0.2);
+      cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .scroll-line {
+      position: absolute; bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      color: var(--low); font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    }
+
+    .scroll-line-bar {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, rgba(249,115,22,0.5), transparent);
+      animation: scrollDrop 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollDrop {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* ─── SHARED ─── */
+    section { position: relative; z-index: 1; padding: 110px 48px; }
+
+    .container { max-width: 1120px; margin: 0 auto; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: '— ';
+    }
+
+    .heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5.5vw, 64px);
+      font-weight: 600; line-height: 1.12;
+      margin-bottom: 24px;
+    }
+
+    .body-text {
+      font-size: 15px; line-height: 2.1;
+      color: var(--mid); max-width: 600px;
+    }
+
+    /* ─── STORY ─── */
+    #story { background: var(--dark2); }
+
+    .story-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 64px;
+    }
+
+    .about-card {
+      background: var(--card);
+      border: 1px solid rgba(249,115,22,0.12);
+      border-radius: 24px;
+      padding: 44px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--grad);
+    }
+
+    .about-card::after {
+      content: '"';
+      position: absolute; right: 28px; bottom: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 120px; line-height: 1;
+      color: rgba(249,115,22,0.07);
+      pointer-events: none;
+    }
+
+    .about-label {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 18px; display: block;
+    }
+
+    .about-text {
+      font-size: 15px; line-height: 2.1; color: var(--mid);
+    }
+
+    .about-text strong { color: var(--cream); font-weight: 700; }
+
+    /* timeline */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .tl-item {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 0 20px;
+      padding-bottom: 40px;
+      position: relative;
+    }
+
+    .tl-item:last-child { padding-bottom: 0; }
+
+    .tl-left {
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    .tl-dot {
+      width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+      background: var(--card2);
+      border: 2px solid rgba(249,115,22,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; z-index: 1; position: relative;
+    }
+
+    .tl-line {
+      width: 2px; flex: 1; margin-top: 8px;
+      background: linear-gradient(to bottom, rgba(249,115,22,0.2), transparent);
+    }
+
+    .tl-item:last-child .tl-line { display: none; }
+
+    .tl-right { padding-top: 10px; }
+
+    .tl-date {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 4px;
+    }
+
+    .tl-title {
+      font-weight: 700; font-size: 16px; margin-bottom: 6px; color: var(--cream);
+    }
+
+    .tl-desc {
+      font-size: 13px; line-height: 1.85; color: var(--mid);
+    }
+
+    /* ─── NUMBERS ─── */
+    #numbers {
+      background: var(--dark);
+      border-top: 1px solid rgba(249,115,22,0.08);
+      border-bottom: 1px solid rgba(249,115,22,0.08);
+    }
+
+    #numbers::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(249,115,22,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .numbers-header {
+      text-align: center; margin-bottom: 72px;
+    }
+
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .num-item {
+      padding: 56px 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .num-item:not(:last-child)::after {
+      content: '';
+      position: absolute; right: 0; top: 15%; height: 70%; width: 1px;
+      background: rgba(249,115,22,0.1);
+    }
+
+    .num-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(60px, 9vw, 96px);
+      font-weight: 600; line-height: 1;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      display: block; margin-bottom: 4px;
+    }
+
+    .num-unit {
+      font-size: clamp(24px, 3vw, 36px);
+    }
+
+    .num-sublabel {
+      font-size: 12px; letter-spacing: 1px; color: var(--mid);
+      margin-top: 14px; display: block; line-height: 1.7;
+    }
+
+    .num-accent {
+      display: inline-block;
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 10px; color: var(--accent); letter-spacing: 1px;
+      margin-top: 10px;
+    }
+
+    /* ─── WHAT I DO ─── */
+    #work { background: var(--dark2); }
+
+    .work-intro { margin-bottom: 64px; }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .work-card {
+      background: var(--card);
+      border: 1px solid rgba(249,115,22,0.1);
+      border-radius: 20px;
+      padding: 36px 28px;
+      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      cursor: default;
+    }
+
+    .work-card:hover {
+      border-color: rgba(249,115,22,0.3);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 64px rgba(249,115,22,0.1);
+    }
+
+    .work-emoji { font-size: 36px; margin-bottom: 20px; display: block; }
+
+    .work-title {
+      font-size: 17px; font-weight: 700; margin-bottom: 12px;
+    }
+
+    .work-desc {
+      font-size: 13px; line-height: 1.9; color: var(--mid);
+    }
+
+    .work-tag {
+      display: inline-block;
+      margin-top: 16px;
+      background: rgba(249,115,22,0.08);
+      border: 1px solid rgba(249,115,22,0.15);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 11px; color: var(--accent);
+    }
+
+    /* ─── PHILOSOPHY ─── */
+    #philosophy {
+      background: var(--dark);
+      text-align: center;
+      padding: 120px 48px;
+    }
+
+    #philosophy::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(236,72,153,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .philo-inner {
+      max-width: 820px; margin: 0 auto;
+    }
+
+    .philo-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4.5vw, 52px);
+      font-weight: 600;
+      line-height: 1.55;
+      margin-bottom: 48px;
+      color: var(--cream);
+    }
+
+    .philo-quote em {
+      font-style: italic;
+      background: var(--grad2);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .philo-body {
+      font-size: 15px; line-height: 2.3; color: var(--mid);
+      max-width: 560px; margin: 0 auto 48px;
+    }
+
+    .philo-tags {
+      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    }
+
+    .philo-tag {
+      background: rgba(236,72,153,0.08);
+      border: 1px solid rgba(236,72,153,0.2);
+      border-radius: 999px;
+      padding: 8px 22px;
+      font-size: 13px; color: rgba(236,72,153,0.9);
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--dark2);
+      text-align: center;
+    }
+
+    .contact-inner { max-width: 680px; margin: 0 auto; }
+
+    .contact-body {
+      font-size: 15px; line-height: 2; color: var(--mid);
+      margin-bottom: 48px;
+    }
+
+    .sns-grid {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    }
+
+    .sns-card {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--card);
+      border: 1.5px solid rgba(249,115,22,0.15);
+      border-radius: 16px;
+      padding: 18px 32px;
+      font-size: 14px; font-weight: 500;
+      color: var(--cream); text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .sns-card:hover {
+      border-color: var(--accent);
+      background: rgba(249,115,22,0.07);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(249,115,22,0.1);
+    }
+
+    .sns-card-icon { font-size: 22px; }
+
+    .sns-card-sub { font-size: 11px; color: var(--low); letter-spacing: 1px; display: block; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative; z-index: 1;
+      padding: 48px;
+      text-align: center;
+      border-top: 1px solid rgba(249,115,22,0.06);
+    }
+
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; letter-spacing: 3px;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .footer-copy { font-size: 11px; color: var(--low); letter-spacing: 1px; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeUp   { from { opacity: 0; transform: translateY(20px);  } to { opacity: 1; transform: none; } }
+
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .reveal.visible { opacity: 1; transform: none; }
+
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .story-layout { grid-template-columns: 1fr; gap: 48px; }
+      .numbers-grid { grid-template-columns: 1fr; }
+      .num-item::after { display: none; }
+      .work-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 80px 24px; }
+      #hero { padding: 100px 24px 90px; }
+      .hero-stats { flex-direction: column; gap: 0; border: none; background: transparent; }
+      .hero-stat { border: 1px solid rgba(249,115,22,0.12); border-radius: 16px; margin-bottom: 10px; }
+      .hero-stat::after { display: none; }
+      footer { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-name">Kaori Kamiyama</div>
+    <ul class="nav-links">
+      <li><a href="#story">Story</a></li>
+      <li><a href="#numbers">実績</a></li>
+      <li><a href="#work">活動</a></li>
+      <li><a href="#philosophy">想い</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section id="hero">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      Working Mom × Creator × dododo
+    </div>
+
+    <h1 class="hero-name-en">Kaori Kamiyama</h1>
+    <span class="hero-name-ja">神山 か お り</span>
+
+    <div class="hero-tag-row">
+      <span class="hero-tag">２児のワーママ</span>
+      <span class="hero-tag">dododoの申し子</span>
+      <span class="hero-tag">感情の魔術師</span>
+      <span class="hero-tag">連続ドキュメンタリー型</span>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">9,222</span>
+        <span class="hero-stat-label">Threads フォロワー</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">500万+</span>
+        <span class="hero-stat-label">note 総売上</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">7ヶ月</span>
+        <span class="hero-stat-label">で達成した記録</span>
+      </div>
+    </div>
+
+    <div class="hero-cta-row">
+      <a href="https://www.threads.com/@k_kaori.dododo" class="btn-primary" target="_blank" rel="noopener">
+        🧵 Threadsをフォロー
+      </a>
+      <a href="#story" class="btn-outline">
+        ストーリーを読む ↓
+      </a>
+    </div>
+
+    <div class="scroll-line">
+      <div class="scroll-line-bar"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ─── STORY ─── -->
+  <section id="story">
+    <div class="container">
+      <span class="eyebrow reveal">Story</span>
+      <h2 class="heading reveal reveal-d1">進化の記録、<br>ドキュメンタリー。</h2>
+      <p class="body-text reveal reveal-d2">
+        「続かない」「自信がない」——そんな正直な自分と向き合いながら、
+        ２人の子どもを育てながら副業に挑戦した記録が、
+        いつしか9,000人が見守るリアルなドキュメンタリーになった。
+      </p>
+
+      <div class="story-layout">
+
+        <div class="about-card reveal">
+          <span class="about-label">Who I Am</span>
+          <p class="about-text">
+            dododoの申し子として、
+            <strong>ワーママ×副業</strong>という等身大の挑戦を
+            リアルに発信し続けています。<br><br>
+            飾らない本音と、感情を揺さぶるコンテンツで
+            「<strong>みんなをdododoに巻き込む感情の魔術師</strong>」として
+            Threadsを中心に活動中。<br><br>
+            「続かない」「自信がない」——そんなあなたの
+            <strong>味方であり続けること</strong>が、私の使命です。
+          </p>
+        </div>
+
+        <div class="timeline reveal">
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot">🌱</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-date">Start</div>
+              <div class="tl-title">副業×ワーママとして発信開始</div>
+              <div class="tl-desc">
+                ２児を育てながら、dododoと共に副業の道へ。
+                「続けられるか」の不安を抱えながらも、
+                リアルな記録を発信開始。
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot">🔥</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-date">7ヶ月後</div>
+              <div class="tl-title">Threads 9,000フォロワー突破</div>
+              <div class="tl-desc">
+                感情を揺さぶるコンテンツが口コミで広がり、
+                わずか7ヶ月でThreads 9,000人が見守る
+                アカウントへと成長。
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot">💫</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-date">現在</div>
+              <div class="tl-title">note 総売上 500万円突破</div>
+              <div class="tl-desc">
+                コンテンツとnoteで積み上げた成果が500万円を突破。
+                「副業ワーママ」から、本気のクリエイターへ
+                進化し続けている。
+              </div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-dot">🚀</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-right">
+              <div class="tl-date">Now & Beyond</div>
+              <div class="tl-title">まだ、進化の途中</div>
+              <div class="tl-desc">
+                このドキュメンタリーに終わりはない。
+                毎日、新しい自分に更新し続けている。
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── NUMBERS ─── -->
+  <section id="numbers">
+    <div class="container">
+      <div class="numbers-header">
+        <span class="eyebrow reveal">Numbers</span>
+        <h2 class="heading reveal reveal-d1">数字が、<br>証明する。</h2>
+        <p class="body-text reveal reveal-d2" style="margin: 0 auto; text-align: center;">
+          飾り言葉じゃなく、リアルな結果で話す。
+        </p>
+      </div>
+
+      <div class="numbers-grid">
+        <div class="num-item reveal">
+          <span class="num-big">9,222</span>
+          <span class="num-sublabel">Threads フォロワー</span>
+          <span class="num-accent">7ヶ月で達成</span>
+        </div>
+        <div class="num-item reveal reveal-d1">
+          <span class="num-big">500万<span class="num-unit">+</span></span>
+          <span class="num-sublabel">note 総売上（累計）</span>
+          <span class="num-accent">副業から本気へ</span>
+        </div>
+        <div class="num-item reveal reveal-d2">
+          <span class="num-big">2<span class="num-unit">児</span></span>
+          <span class="num-sublabel">育てながら、全部やってきた</span>
+          <span class="num-accent">ワーママの底力</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHAT I DO ─── -->
+  <section id="work">
+    <div class="container">
+      <div class="work-intro">
+        <span class="eyebrow reveal">Activities</span>
+        <h2 class="heading reveal reveal-d1">私が届けるもの</h2>
+        <p class="body-text reveal reveal-d2">
+          感情を動かすコンテンツで、あなたの背中を押す。
+        </p>
+      </div>
+
+      <div class="work-grid">
+        <div class="work-card reveal">
+          <span class="work-emoji">✍️</span>
+          <div class="work-title">noteコンテンツ</div>
+          <p class="work-desc">
+            副業・ワーママ・AI活用をテーマに、
+            等身大のリアルを詰め込んだnoteを継続発信。
+            累計売上500万円以上を達成した、
+            コンテンツ制作の実力。
+          </p>
+          <span class="work-tag">累計500万円+</span>
+        </div>
+
+        <div class="work-card reveal reveal-d1">
+          <span class="work-emoji">📱</span>
+          <div class="work-title">Threads 連続発信</div>
+          <p class="work-desc">
+            「連続ドキュメンタリー型」アカウントとして、
+            進化のリアルを毎日発信。
+            7ヶ月で9,000人が見守る
+            コミュニティへと成長させた発信力。
+          </p>
+          <span class="work-tag">9,000人が見守る</span>
+        </div>
+
+        <div class="work-card reveal reveal-d2">
+          <span class="work-emoji">🔥</span>
+          <div class="work-title">dododoコミュニティ</div>
+          <p class="work-desc">
+            「続かない」「自信がない」人たちが
+            集まるdododoを体現。
+            感情で人を動かし、
+            みんなを一緒に巻き込む発信を続けている。
+          </p>
+          <span class="work-tag">感情の魔術師</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PHILOSOPHY ─── -->
+  <section id="philosophy">
+    <div class="container">
+      <div class="philo-inner">
+        <span class="eyebrow reveal">Philosophy</span>
+        <blockquote class="philo-quote reveal reveal-d1">
+          「続かなくていい。<br>
+          <em>変わり続けることが、<br>答えだから。</em>」
+        </blockquote>
+        <p class="philo-body reveal reveal-d2">
+          「続かない」「自信がない」——それは弱さじゃない。
+          変化の途中にいる、証拠。<br><br>
+          私は、ワーママとして、副業人として、ひとりの人間として、
+          リアルな進化の記録を発信し続けます。<br><br>
+          あなたの「なりたい自分」を、一緒に見つけにいきましょう。
+        </p>
+        <div class="philo-tags reveal reveal-d3">
+          <span class="philo-tag"># 続かなくていい</span>
+          <span class="philo-tag"># 自信がなくていい</span>
+          <span class="philo-tag"># 変わり続ける</span>
+          <span class="philo-tag"># dododo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTACT ─── -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <span class="eyebrow reveal">Contact</span>
+        <h2 class="heading reveal reveal-d1">つながりましょう</h2>
+        <p class="contact-body reveal reveal-d2">
+          Threadsでは毎日リアルな進化を発信中！<br>
+          noteでは本音のコンテンツをお届けしています。<br>
+          あなたの「なりたい自分」への第一歩を、一緒に踏み出しましょう。
+        </p>
+        <div class="sns-grid reveal reveal-d3">
+          <a href="https://www.threads.com/@k_kaori.dododo" class="sns-card" target="_blank" rel="noopener">
+            <span class="sns-card-icon">🧵</span>
+            <div>
+              <div>Threads</div>
+              <span class="sns-card-sub">@k_kaori.dododo</span>
+            </div>
+          </a>
+          <a href="https://note.com" class="sns-card" target="_blank" rel="noopener">
+            <span class="sns-card-icon">📝</span>
+            <div>
+              <div>note</div>
+              <span class="sns-card-sub">コンテンツ販売中</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <p class="footer-name">Kaori Kamiyama</p>
+    <p class="footer-copy">© 2025 k_kaori.dododo | 2児のワーママ × 副業クリエイター × dododo</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Nav shrink on scroll
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.padding = window.scrollY > 60 ? '14px 48px' : '20px 48px';
+    }, { passive: true });
+  </script>
+</body>
+</html>
