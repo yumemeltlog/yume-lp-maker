@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小さなお店の集客ページ作ります | ゆめ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FBF4F0;
+      --pink-pale: #F5DCE0;
+      --pink: #C4748A;
+      --pink-deep: #9B5070;
+      --gold: #C4A882;
+      --text: #3D2525;
+      --text-mid: rgba(61, 37, 37, 0.60);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Serif JP', serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      background-image: url('img/hero.jpg');
+      background-size: cover;
+      background-position: center top;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 64px 36px 80px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        rgba(251,244,240,0.80) 0%,
+        rgba(245,220,224,0.50) 55%,
+        transparent 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      max-width: 420px;
+    }
+    .hero-target {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      color: var(--text-mid);
+      line-height: 1.9;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .deco-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .deco-line span { flex: 1; height: 1px; background: var(--gold); max-width: 48px; }
+    .deco-line i { color: var(--gold); font-style: normal; font-size: 10px; }
+
+    h1 {
+      font-size: clamp(30px, 7vw, 52px);
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    h1 em {
+      font-style: normal;
+      color: var(--pink-deep);
+      font-weight: 600;
+    }
+    .hero-sub {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-mid);
+      line-height: 1.9;
+      margin-bottom: 36px;
+    }
+    .hero-badges {
+      display: flex;
+      gap: 12px;
+    }
+    .badge {
+      border: 1px solid var(--pink);
+      border-radius: 50%;
+      width: 78px;
+      height: 78px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      line-height: 1.5;
+      text-align: center;
+      color: var(--pink-deep);
+      background: rgba(251,244,240,0.78);
+      padding: 6px;
+    }
+    .badge strong { font-size: 12px; font-weight: 600; }
+
+    /* ===== COMMON SECTION ===== */
+    .sec {
+      padding: 80px 28px;
+    }
+    .sec-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .ornament {
+      text-align: center;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 10px;
+      margin-bottom: 10px;
+    }
+    .sec-title {
+      font-size: clamp(26px, 5.5vw, 40px);
+      font-weight: 400;
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    .sec-title em { font-style: normal; color: var(--pink-deep); font-weight: 600; }
+    .gold-rule {
+      width: 36px;
+      height: 1px;
+      background: var(--gold);
+      margin: 20px auto 40px;
+    }
+
+    /* ===== PAIN ===== */
+    .pain-sec {
+      position: relative;
+      background-image: url('img/pain.jpg');
+      background-size: cover;
+      background-position: center top;
+    }
+    .pain-sec::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(251,244,240,0.87);
+    }
+    .pain-sec .sec-inner { position: relative; }
+    .pain-list { display: flex; flex-direction: column; gap: 14px; }
+    .pain-item {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(196,168,130,0.30);
+      border-radius: 14px;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+    .chk {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--pink-pale);
+      border: 1.5px solid var(--pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--pink-deep);
+    }
+    .pain-footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 15px;
+      color: var(--pink-deep);
+    }
+
+    /* ===== SOLUTION ===== */
+    .solution-sec {
+      position: relative;
+      background-image: url('img/solution.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .solution-sec::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(251,244,240,0.88);
+    }
+    .solution-sec .sec-inner { position: relative; }
+    .def-box {
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      padding: 28px 24px;
+      text-align: center;
+      background: rgba(255,255,255,0.55);
+      margin-bottom: 28px;
+    }
+    .def-label {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .def-text {
+      font-size: 17px;
+      line-height: 1.9;
+    }
+    .def-text strong { color: var(--pink-deep); }
+    .solution-body {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      color: var(--text-mid);
+      text-align: center;
+      line-height: 2.1;
+      margin-bottom: 14px;
+    }
+    .solution-note {
+      text-align: center;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: var(--pink);
+    }
+
+    /* ===== PRICE ===== */
+    .price-sec {
+      background: var(--pink-pale);
+    }
+    .monitor-badge {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .monitor-badge span {
+      display: inline-block;
+      border: 1px solid var(--pink);
+      border-radius: 999px;
+      padding: 9px 28px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      color: var(--pink-deep);
+    }
+    .price-card {
+      background: rgba(255,255,255,0.70);
+      border: 1px solid rgba(196,168,130,0.35);
+      border-radius: 20px;
+      padding: 44px 28px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .price-old {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 20px;
+      color: var(--text-mid);
+      text-decoration: line-through;
+      margin-bottom: 2px;
+    }
+    .price-arrow { font-size: 22px; color: var(--pink); margin: 6px 0; }
+    .price-new {
+      font-size: clamp(44px, 12vw, 68px);
+      color: var(--pink-deep);
+      font-weight: 600;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 28px;
+    }
+    .price-conds {
+      list-style: none;
+      text-align: left;
+      display: inline-block;
+      border-top: 1px solid rgba(196,168,130,0.30);
+      padding-top: 20px;
+      width: 100%;
+    }
+    .price-conds li {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      color: var(--text-mid);
+      padding: 7px 0;
+      border-bottom: 1px dashed rgba(196,168,130,0.30);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.6;
+    }
+    .price-conds li::before { content: '・'; color: var(--pink); flex-shrink: 0; }
+    .price-note {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 11px;
+      color: var(--text-mid);
+      text-align: center;
+    }
+
+    /* ===== FLOW ===== */
+    .flow-sec { background: var(--cream); }
+    .flow-steps { display: flex; flex-direction: column; }
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px dashed rgba(196,168,130,0.30);
+    }
+    .flow-step:last-child { border-bottom: none; }
+    .flow-num {
+      flex-shrink: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      margin-top: 2px;
+    }
+    .flow-content h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .flow-content p {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: var(--text-mid);
+      line-height: 1.9;
+    }
+
+    /* ===== CTA ===== */
+    .cta-sec {
+      position: relative;
+      background-image: url('img/cta.jpg');
+      background-size: cover;
+      background-position: center top;
+      padding: 100px 28px;
+    }
+    .cta-sec::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(251,244,240,0.72) 0%,
+        rgba(251,244,240,0.88) 100%
+      );
+    }
+    .cta-sec .sec-inner {
+      position: relative;
+      text-align: center;
+    }
+    .cta-title {
+      font-size: clamp(22px, 5vw, 36px);
+      font-weight: 400;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .cta-title em { font-style: normal; color: var(--pink-deep); font-weight: 600; }
+    .cta-card {
+      background: rgba(255,255,255,0.68);
+      border: 1px solid rgba(196,168,130,0.35);
+      border-radius: 20px;
+      padding: 36px 24px;
+      margin-bottom: 16px;
+    }
+    .cta-card-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 5px;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .cta-body {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 2.1;
+      margin-bottom: 28px;
+    }
+    .btn-dm {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+      color: #fff;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      padding: 18px 44px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(155,80,112,0.22);
+      transition: transform 0.18s, box-shadow 0.18s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-dm:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(155,80,112,0.32);
+    }
+    .btn-dm small {
+      display: block;
+      font-size: 10px;
+      opacity: 0.80;
+      margin-top: 5px;
+      letter-spacing: 1px;
+    }
+    .cta-closing {
+      font-size: 14px;
+      color: var(--pink-deep);
+      margin-top: 20px;
+    }
+    .cta-ai-note {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 11px;
+      color: var(--text-mid);
+      margin-top: 14px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 28px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(196,168,130,0.20);
+    }
+    footer p {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 11px;
+      color: var(--text-mid);
+    }
+
+    /* ===== FADE IN ===== */
+    .fade {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .sec { padding: 60px 20px; }
+      .hero { padding: 56px 24px 72px; }
+      .cta-sec { padding: 80px 20px; }
+      .badge { width: 72px; height: 72px; font-size: 10px; }
+      .badge strong { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-target">
+        世界観にこだわる<br>
+        ネイルサロン・カフェ・ハンドメイドショップ・<br>
+        個人サロンのオーナーさま
+      </p>
+      <div class="deco-line">
+        <span></span><i>✦</i><span></span>
+      </div>
+      <h1>
+        小さなお店の<br>
+        <em>"集客ページ"</em><br>
+        作ります
+      </h1>
+      <p class="hero-sub">あなたのお店の"顔"を<br>一緒に作らせてください</p>
+      <div class="hero-badges">
+        <div class="badge"><strong>予約に</strong>つながる</div>
+        <div class="badge"><strong>世界観</strong>が伝わる</div>
+        <div class="badge"><strong>ファン</strong>が増える</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAIN ===== -->
+  <section class="sec pain-sec">
+    <div class="sec-inner">
+      <p class="ornament fade">✦ ✦ ✦</p>
+      <h2 class="sec-title fade">こんな悩み、<br>ありませんか？</h2>
+      <div class="gold-rule fade"></div>
+      <div class="pain-list">
+        <div class="pain-item fade">
+          <div class="chk">✓</div>
+          予約がDMだけで取りこぼしてる
+        </div>
+        <div class="pain-item fade">
+          <div class="chk">✓</div>
+          世界観がInstagramだけじゃ伝わらない
+        </div>
+        <div class="pain-item fade">
+          <div class="chk">✓</div>
+          新規さんが料金・メニューを探しづらそう
+        </div>
+        <div class="pain-item fade">
+          <div class="chk">✓</div>
+          ホームページを作る余裕はない
+        </div>
+        <div class="pain-item fade">
+          <div class="chk">✓</div>
+          でもお店の魅力をちゃんと届けたい
+        </div>
+      </div>
+      <p class="pain-footer fade">そのお悩み、ぜんぶおまかせください♡</p>
+    </div>
+  </section>
+
+  <!-- ===== SOLUTION ===== -->
+  <section class="sec solution-sec">
+    <div class="sec-inner">
+      <p class="ornament fade">✦ ✦ ✦</p>
+      <h2 class="sec-title fade">全部、<em>LP</em>で<br>解決できます。</h2>
+      <div class="gold-rule fade"></div>
+      <div class="def-box fade">
+        <p class="def-label">L P と は</p>
+        <p class="def-text">
+          『1つの目的に絞った<br>
+          <strong>1枚のページ』</strong>
+        </p>
+      </div>
+      <p class="solution-body fade">
+        予約・世界観・料金・問い合わせを<br>
+        ひとまとめにできる、<br>
+        お店の"顔"です。
+      </p>
+      <p class="solution-note fade">スマホで見やすく、予約までスムーズに♡</p>
+    </div>
+  </section>
+
+  <!-- ===== PRICE ===== -->
+  <section class="sec price-sec">
+    <div class="sec-inner">
+      <div class="monitor-badge fade">
+        <span>先着5名様モニター募集</span>
+      </div>
+      <div class="price-card fade">
+        <p class="price-old">¥29,800</p>
+        <p class="price-arrow">↓</p>
+        <p class="price-new">¥19,800</p>
+        <ul class="price-conds">
+          <li>制作実績としての掲載にご同意いただける方</li>
+          <li>お客様の声のご提供にご協力いただける方</li>
+        </ul>
+      </div>
+      <p class="price-note fade">※お支払い方法は、PayPay・銀行振込のみになります</p>
+    </div>
+  </section>
+
+  <!-- ===== FLOW ===== -->
+  <section class="sec flow-sec">
+    <div class="sec-inner">
+      <p class="ornament fade">✦ ✦ ✦</p>
+      <h2 class="sec-title fade">ご依頼の<em>流れ</em></h2>
+      <div class="gold-rule fade"></div>
+      <div class="flow-steps">
+        <div class="flow-step fade">
+          <div class="flow-num">1</div>
+          <div class="flow-content">
+            <h3>ヒアリングフォームに記入</h3>
+            <p>お店の情報・世界観・ご要望をフォームでお聞きします。<br>3分程度で完了します。</p>
+          </div>
+        </div>
+        <div class="flow-step fade">
+          <div class="flow-num">2</div>
+          <div class="flow-content">
+            <h3>ご確認・お支払い</h3>
+            <p>内容を確認後、お見積りをお送りします。<br>PayPay・銀行振込でお支払いいただけます。</p>
+          </div>
+        </div>
+        <div class="flow-step fade">
+          <div class="flow-num">3</div>
+          <div class="flow-content">
+            <h3>LP制作・納品</h3>
+            <p>Midjourney × Claude Codeで丁寧に制作。<br>世界観にこだわったLPをお届けします。</p>
+          </div>
+        </div>
+        <div class="flow-step fade">
+          <div class="flow-num">4</div>
+          <div class="flow-content">
+            <h3>修正・完成</h3>
+            <p>1回の修正対応込み。<br>完成後はそのままお使いください♡</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-sec">
+    <div class="sec-inner">
+      <h2 class="cta-title fade">
+        あなたの世界観を、<br>
+        <em>ちゃんと届く</em>カタチに。
+      </h2>
+      <div class="cta-card fade">
+        <p class="cta-card-label">C O N T A C T</p>
+        <p class="cta-body">
+          お店の魅力を、もっと伝えて<br>
+          もっと愛されるお店へ。<br>
+          心配やお悩みがありましたら<br>
+          すぐにご相談ください
+        </p>
+        <a href="https://forms.gle/N2YkPWDZA2KjFTuA9" target="_blank" rel="noopener" class="btn-dm">
+          ヒアリングフォームへ進む
+          <small>3分で完了・無料相談もこちらから</small>
+        </a>
+      </div>
+      <p class="cta-closing fade">一緒に、最高の"顔"を作りましょう♡</p>
+      <p class="cta-ai-note fade">※AIでの制作になりますのでご了承ください</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 ゆめ（@yume.meltlog_）｜Midjourney × Claude Code でLP制作</p>
+  </footer>
+
+  <script>
+    // スクロールでフェードイン
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
