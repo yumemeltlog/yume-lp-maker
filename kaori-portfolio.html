@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaori | コンテンツクリエイター</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:  #111111;
+      --g800:   #2D2D2D;
+      --g600:   #5C5C5C;
+      --g400:   #999999;
+      --g200:   #E0E0E0;
+      --g100:   #F2F2F2;
+      --g50:    #F8F8F8;
+      --white:  #FFFFFF;
+      --line:   #06C755;
+      --line-dk:#05A847;
+      --r:      12px;
+      --rl:     20px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+
+    .sec-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--g400); margin-bottom: 14px; display: block;
+    }
+    .sec-title {
+      font-size: clamp(22px, 4vw, 28px); font-weight: 700;
+      line-height: 1.35; margin-bottom: 12px;
+    }
+    .sec-body { font-size: 15px; color: var(--g600); line-height: 1.9; }
+
+    /* ─ NAV ─ */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s;
+    }
+    nav.scrolled { border-color: var(--g200); }
+    .nav-inner {
+      max-width: 1080px; margin: 0 auto; padding: 0 24px;
+      height: 60px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 700; }
+    .nav-menu { display: none; gap: 28px; }
+    .nav-menu a { font-size: 13px; color: var(--g600); transition: color .2s; }
+    .nav-menu a:hover { color: var(--black); }
+    .nav-cta {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--line); color: #fff;
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700;
+      padding: 8px 18px; border-radius: 999px; transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--line-dk); }
+    .nav-cta svg { width: 13px; height: 13px; fill: #fff; }
+
+    /* ─ HERO ─ */
+    #hero { padding: 52px 0 72px; }
+    .hero-wrap { display: flex; flex-direction: column; gap: 44px; }
+
+    .hero-badge {
+      display: inline-block; background: var(--g100); border-radius: 999px;
+      padding: 6px 16px; font-size: 12px; color: var(--g600); margin-bottom: 18px;
+    }
+    .hero-name {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(40px, 10vw, 60px); font-weight: 700;
+      letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 4px;
+    }
+    .hero-name-ja {
+      font-size: 12px; color: var(--g400); letter-spacing: 5px;
+      display: block; margin-bottom: 22px;
+    }
+    .hero-catch {
+      font-size: clamp(24px, 5.5vw, 36px); font-weight: 700;
+      line-height: 1.35; margin-bottom: 16px;
+    }
+    .hero-desc {
+      font-size: 14px; color: var(--g600); line-height: 1.95;
+      max-width: 400px; margin-bottom: 28px;
+    }
+    .hero-btns { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .hero-stats {
+      display: flex; gap: 20px;
+      padding-top: 22px; border-top: 1px solid var(--g200);
+    }
+    .hstat { }
+    .hstat-num {
+      font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 700;
+      display: block; line-height: 1.2;
+    }
+    .hstat-label { font-size: 11px; color: var(--g400); }
+
+    /* photo */
+    .hero-photo {
+      width: 100%; border-radius: var(--rl); overflow: hidden;
+      aspect-ratio: 4/5; background: var(--g100); position: relative;
+    }
+    .hero-photo img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top;
+    }
+    .photo-fallback {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; color: var(--g400);
+    }
+    .photo-fallback-circle {
+      width: 72px; height: 72px; border-radius: 50%; background: var(--g200);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .photo-fallback-circle svg { width: 36px; height: 36px; fill: var(--g400); }
+    .photo-fallback span { font-size: 12px; letter-spacing: 1px; }
+
+    /* ─ BUTTONS ─ */
+    .btn-line {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--line); color: #fff;
+      font-size: 16px; font-weight: 700;
+      padding: 16px 28px; border-radius: var(--r); border: none; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .btn-line:hover { background: var(--line-dk); transform: translateY(-1px); }
+    .btn-line svg { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
+
+    .btn-ghost {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: transparent; color: var(--g600); font-size: 14px;
+      padding: 14px 28px; border-radius: var(--r); border: 1.5px solid var(--g200);
+      transition: all .2s;
+    }
+    .btn-ghost:hover { border-color: var(--black); color: var(--black); }
+
+    /* ─ ABOUT ─ */
+    #about { background: var(--g50); }
+    .about-grid { display: grid; gap: 40px; }
+    .about-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .about-avatar {
+      width: 76px; height: 76px; border-radius: 50%;
+      background: var(--g200); overflow: hidden; flex-shrink: 0;
+    }
+    .about-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .about-n { font-size: 18px; font-weight: 700; }
+    .about-handle { font-size: 13px; color: var(--g400); }
+    .about-text { font-size: 15px; color: var(--g600); line-height: 2; margin-bottom: 20px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .chip {
+      background: var(--white); border: 1.5px solid var(--g200); border-radius: 999px;
+      padding: 5px 15px; font-size: 12px; color: var(--g600);
+    }
+    .sns-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .sns-link {
+      display: flex; align-items: center; gap: 7px;
+      border: 1.5px solid var(--g200); border-radius: var(--r);
+      padding: 9px 18px; font-size: 13px; font-weight: 500; transition: all .2s;
+    }
+    .sns-link:hover { border-color: var(--black); background: var(--black); color: var(--white); }
+
+    /* ─ SKILLS ─ */
+    #skills { background: var(--white); }
+    .skills-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 36px;
+    }
+    .skill-card {
+      background: var(--g50); border: 1.5px solid var(--g200);
+      border-radius: var(--rl); padding: 24px 20px; transition: border-color .2s;
+    }
+    .skill-card:hover { border-color: var(--g400); }
+    .skill-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px; flex-shrink: 0;
+    }
+    .skill-icon svg { width: 20px; height: 20px; stroke: var(--white); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .skill-title { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+    .skill-desc { font-size: 12px; color: var(--g600); line-height: 1.75; }
+
+    /* ─ ACHIEVEMENTS ─ */
+    #achievements { background: var(--black); color: var(--white); }
+    #achievements .sec-label { color: rgba(255,255,255,.3); }
+    #achievements .sec-title { color: var(--white); }
+    #achievements .sec-body  { color: rgba(255,255,255,.5); }
+    .ach-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; margin-top: 44px;
+      border: 1px solid rgba(255,255,255,.07); border-radius: var(--rl); overflow: hidden;
+    }
+    .ach-card {
+      padding: 36px 28px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.05);
+    }
+    .ach-num {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(44px, 9vw, 72px); font-weight: 700;
+      letter-spacing: -2px; line-height: 1; display: block; margin-bottom: 8px;
+    }
+    .ach-label { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.5; }
+    .ach-badge {
+      display: inline-block; margin-top: 10px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 999px; padding: 3px 12px;
+      font-size: 10px; letter-spacing: 1px; color: rgba(255,255,255,.4);
+    }
+
+    /* ─ CONTENT ─ */
+    #content { background: var(--g50); }
+    .content-list { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; }
+    .content-card {
+      background: var(--white); border: 1.5px solid var(--g200);
+      border-radius: var(--rl); padding: 20px;
+      display: flex; align-items: center; gap: 16px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .content-card:hover { border-color: var(--g400); box-shadow: 0 4px 20px rgba(0,0,0,.06); }
+    .cc-icon {
+      width: 52px; height: 52px; border-radius: var(--r);
+      background: var(--g100); display: flex; align-items: center;
+      justify-content: center; font-size: 22px; flex-shrink: 0;
+    }
+    .cc-body { flex: 1; min-width: 0; }
+    .cc-platform {
+      font-family: 'Inter', sans-serif; font-size: 10px;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--g400); margin-bottom: 3px;
+    }
+    .cc-title { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+    .cc-desc  { font-size: 12px; color: var(--g600); }
+    .cc-arrow { color: var(--g400); font-size: 20px; flex-shrink: 0; }
+
+    /* ─ CTA ─ */
+    #cta { background: var(--white); text-align: center; }
+    .cta-wrap { max-width: 500px; margin: 0 auto; }
+    .cta-title { font-size: clamp(22px, 5vw, 30px); font-weight: 700; line-height: 1.4; margin-bottom: 14px; }
+    .cta-body  { font-size: 14px; color: var(--g600); line-height: 1.95; margin-bottom: 32px; }
+    .cta-btn   { max-width: 360px; margin: 0 auto 24px; }
+    .cta-perks { display: flex; flex-direction: column; gap: 10px; text-align: left; max-width: 300px; margin: 0 auto; }
+    .cta-perk  { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--g600); }
+    .perk-check {
+      width: 18px; height: 18px; border-radius: 50%; background: var(--line);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      color: #fff; font-size: 10px; font-weight: 700;
+    }
+
+    /* ─ FOOTER ─ */
+    footer { background: var(--black); padding: 44px 24px; text-align: center; }
+    .footer-logo { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 14px; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,.4); transition: color .2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,.2); }
+
+    /* ─ STICKY LINE (mobile only) ─ */
+    .sticky-line {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      padding: 12px 20px 16px;
+      background: rgba(255,255,255,.95); backdrop-filter: blur(8px);
+      border-top: 1px solid var(--g200);
+    }
+
+    /* ─ REVEAL ─ */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; }
+    .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; }
+
+    /* ─ DESKTOP ─ */
+    @media (min-width: 768px) {
+      section { padding: 100px 0; }
+      .nav-menu { display: flex; }
+      .hero-wrap { flex-direction: row; align-items: flex-start; gap: 80px; }
+      .hero-text { flex: 1; order: 1; }
+      .hero-photo { width: 380px; flex-shrink: 0; order: 2; aspect-ratio: 3/4; }
+      .hero-btns { flex-direction: row; }
+      .btn-line, .btn-ghost { width: auto; }
+      .about-grid { grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+      .skills-grid { grid-template-columns: repeat(4, 1fr); }
+      .ach-grid { grid-template-columns: repeat(3, 1fr); }
+      .content-list { display: grid; grid-template-columns: 1fr 1fr; }
+      .sticky-line { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">Kaori</div>
+      <ul class="nav-menu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">スキル</a></li>
+        <li><a href="#achievements">実績</a></li>
+        <li><a href="#content">コンテンツ</a></li>
+      </ul>
+      <a href="#cta" class="nav-cta">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.036 2 11.012c0 4.449 3.864 8.178 9.08 8.858.353.077.834.235.956.537.108.274.071.7.035.974l-.149.928c-.046.271-.217 1.062.946.579 1.164-.484 6.264-3.699 8.544-6.326C22.84 14.825 22 12.52 22 11.012 22 6.036 17.523 2 12 2z"/></svg>
+        LINE登録
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="wrap">
+      <div class="hero-wrap">
+
+        <div class="hero-text">
+          <span class="hero-badge">Content Creator</span>
+          <h1 class="hero-name">Kaori</h1>
+          <span class="hero-name-ja">カ　オ　リ</span>
+          <p class="hero-catch">発信を、<br>仕組みに変える。</p>
+          <p class="hero-desc">
+            AI × Threads × note を軸に、副業・SNS運用を設計するコンテンツクリエイター。
+            「続けられない」を「仕組みで稼ぐ」に変えるサポートをしています。
+          </p>
+          <div class="hero-btns">
+            <a href="#cta" class="btn-line">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.036 2 11.012c0 4.449 3.864 8.178 9.08 8.858.353.077.834.235.956.537.108.274.071.7.035.974l-.149.928c-.046.271-.217 1.062.946.579 1.164-.484 6.264-3.699 8.544-6.326C22.84 14.825 22 12.52 22 11.012 22 6.036 17.523 2 12 2z"/></svg>
+              LINEで繋がる
+            </a>
+            <a href="#achievements" class="btn-ghost">実績を見る →</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hstat">
+              <span class="hstat-num">9,222</span>
+              <span class="hstat-label">Threads フォロワー</span>
+            </div>
+            <div class="hstat">
+              <span class="hstat-num">500万+</span>
+              <span class="hstat-label">note 総売上</span>
+            </div>
+            <div class="hstat">
+              <span class="hstat-num">7ヶ月</span>
+              <span class="hstat-label">で達成</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 写真: kaori.jpg を同フォルダに配置してください -->
+        <div class="hero-photo">
+          <div class="photo-fallback" id="hero-ph">
+            <div class="photo-fallback-circle">
+              <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+            </div>
+            <span>Photo</span>
+          </div>
+          <img src="kaori.jpg" alt="Kaori" style="position:absolute;inset:0" onload="document.getElementById('hero-ph').style.display='none'" onerror="this.style.display='none'">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="reveal">
+          <span class="sec-label">About</span>
+          <h2 class="sec-title">カオリって、<br>どんな人？</h2>
+          <p class="sec-body">
+            Threadsとnoteを主戦場に、<br>
+            AIを使った発信の仕組み化を日々研究・発信しています。
+          </p>
+        </div>
+        <div class="reveal d1">
+          <div class="about-head">
+            <div class="about-avatar">
+              <img src="kaori.jpg" alt="Kaori" onerror="this.style.display='none'">
+            </div>
+            <div>
+              <div class="about-n">カオリ</div>
+              <div class="about-handle">@k_kaori.dododo</div>
+            </div>
+          </div>
+          <p class="about-text">
+            本業マネジメント×2児のママ。SNSは「見る専」だった私が、育児の隙間時間だけでここまできました。<br><br>
+            フォロワー0・副業経験ゼロからのスタート。「情報を届ける」より<strong>「自分のファンをつくる」</strong>ことに気づいてから、全部変わりました。<br><br>
+            忙しいママでも、不器用な人でも、仕組みさえ整えれば稼げる——そのリアルを発信し続けています。
+          </p>
+          <div class="chips">
+            <span class="chip">２児のワーママ</span>
+            <span class="chip">AI活用</span>
+            <span class="chip">仕組み化</span>
+            <span class="chip">dododo</span>
+            <span class="chip">感情の魔術師</span>
+          </div>
+          <div class="sns-row">
+            <a href="https://www.threads.com/@k_kaori.dododo" class="sns-link" target="_blank" rel="noopener">
+              🧵 Threads
+            </a>
+            <!-- note URL: 選定後に正式URLを設定してください -->
+            <a href="https://note.com" class="sns-link" target="_blank" rel="noopener">
+              📝 note
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <span class="sec-label reveal">Skills</span>
+      <h2 class="sec-title reveal d1">できること</h2>
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 6V4M12 6V4M15 6V4M9 18v2M12 18v2M15 18v2M6 9H4M6 12H4M6 15H4M18 9h2M18 12h2M18 15h2"/></svg>
+          </div>
+          <div class="skill-title">AI活用・仕組み化</div>
+          <p class="skill-desc">AIツールを活用した業務・副業の自動化と仕組み設計</p>
+        </div>
+        <div class="skill-card reveal d1">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/><path d="M19.5 7.125L16.862 4.487"/></svg>
+          </div>
+          <div class="skill-title">コンテンツ設計</div>
+          <p class="skill-desc">読まれる・売れるnote記事の企画・構成・制作</p>
+        </div>
+        <div class="skill-card reveal d2">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><path d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
+          </div>
+          <div class="skill-title">SNS運用設計</div>
+          <p class="skill-desc">Threadsを軸としたフォロワーを伸ばすSNS戦略</p>
+        </div>
+        <div class="skill-card reveal d3">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
+          </div>
+          <div class="skill-title">副業サポート</div>
+          <p class="skill-desc">育児・仕事をしながら稼ぎ続けられる副業モデルの構築</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="wrap">
+      <span class="sec-label reveal">Achievements</span>
+      <h2 class="sec-title reveal d1">数字で見る実績</h2>
+      <p class="sec-body reveal d2">飾り言葉じゃなく、リアルな結果で話します。</p>
+      <div class="ach-grid">
+        <div class="ach-card reveal">
+          <span class="ach-num">9,222</span>
+          <div class="ach-label">Threads フォロワー</div>
+          <span class="ach-badge">7ヶ月で達成</span>
+        </div>
+        <div class="ach-card reveal d1">
+          <span class="ach-num">500万+</span>
+          <div class="ach-label">note 総売上（累計）</div>
+          <span class="ach-badge">副業から本気へ</span>
+        </div>
+        <div class="ach-card reveal d2">
+          <span class="ach-num">2児</span>
+          <div class="ach-label">育てながら全部やった</div>
+          <span class="ach-badge">ワーママの底力</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <section id="content">
+    <div class="wrap">
+      <span class="sec-label reveal">Contents</span>
+      <h2 class="sec-title reveal d1">発信コンテンツ</h2>
+      <p class="sec-body reveal d2">note・Threadsで毎日情報を発信しています。</p>
+      <div class="content-list">
+        <a href="https://www.threads.com/@k_kaori.dododo" class="content-card reveal" target="_blank" rel="noopener">
+          <div class="cc-icon">🧵</div>
+          <div class="cc-body">
+            <div class="cc-platform">Threads</div>
+            <div class="cc-title">@k_kaori.dododo</div>
+            <div class="cc-desc">AI・副業・仕組み化を毎日発信中</div>
+          </div>
+          <span class="cc-arrow">›</span>
+        </a>
+        <a href="https://note.com" class="content-card reveal d1" target="_blank" rel="noopener">
+          <div class="cc-icon">📝</div>
+          <div class="cc-body">
+            <div class="cc-platform">note</div>
+            <div class="cc-title">カオリのnote</div>
+            <div class="cc-desc">副業・AI活用のノウハウをコンテンツ販売</div>
+          </div>
+          <span class="cc-arrow">›</span>
+        </a>
+        <!-- 追加カード: 選定後にリンクを追加してください -->
+        <div class="content-card reveal d2" style="border-style:dashed;cursor:default;">
+          <div class="cc-icon" style="background:transparent;border:1.5px dashed var(--g200);color:var(--g400);font-size:20px;">+</div>
+          <div class="cc-body">
+            <div class="cc-platform">Coming Soon</div>
+            <div class="cc-title" style="color:var(--g400);">コンテンツ追加予定</div>
+            <div class="cc-desc">選定後に追加・更新します</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="wrap">
+      <div class="cta-wrap">
+        <span class="sec-label reveal">Contact</span>
+        <h2 class="cta-title reveal d1">LINEで<br>繋がりませんか？</h2>
+        <p class="cta-body reveal d2">
+          AI活用・副業・SNS運用に関する最新情報や<br>
+          限定コンテンツをお届けしています。
+        </p>
+        <div class="cta-btn reveal d3">
+          <!-- LINE公式アカウントURL: 選定後に設定してください -->
+          <a href="#" class="btn-line" style="font-size:17px;padding:20px 28px;">
+            <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:#fff"><path d="M12 2C6.48 2 2 6.036 2 11.012c0 4.449 3.864 8.178 9.08 8.858.353.077.834.235.956.537.108.274.071.7.035.974l-.149.928c-.046.271-.217 1.062.946.579 1.164-.484 6.264-3.699 8.544-6.326C22.84 14.825 22 12.52 22 11.012 22 6.036 17.523 2 12 2z"/></svg>
+            LINE 友だち追加
+          </a>
+        </div>
+        <div class="cta-perks reveal" style="margin-top:24px;">
+          <div class="cta-perk"><span class="perk-check">✓</span>AIを使った仕組み化の最新情報</div>
+          <div class="cta-perk"><span class="perk-check">✓</span>副業・SNS運用のお役立ちコンテンツ</div>
+          <div class="cta-perk"><span class="perk-check">✓</span>限定情報をいち早くお届け</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Kaori</div>
+    <div class="footer-links">
+      <a href="https://www.threads.com/@k_kaori.dododo" target="_blank" rel="noopener">Threads</a>
+      <a href="https://note.com" target="_blank" rel="noopener">note</a>
+    </div>
+    <p class="footer-copy">© 2025 Kaori. All rights reserved.</p>
+  </footer>
+
+  <!-- スマホ固定LINE誘導 -->
+  <div class="sticky-line">
+    <a href="#cta" class="btn-line" style="font-size:15px;padding:14px 28px;">
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#fff"><path d="M12 2C6.48 2 2 6.036 2 11.012c0 4.449 3.864 8.178 9.08 8.858.353.077.834.235.956.537.108.274.071.7.035.974l-.149.928c-.046.271-.217 1.062.946.579 1.164-.484 6.264-3.699 8.544-6.326C22.84 14.825 22 12.52 22 11.012 22 6.036 17.523 2 12 2z"/></svg>
+      LINE 友だち追加
+    </a>
+  </div>
+
+  <script>
+    // Nav border on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    // Scroll reveal
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
