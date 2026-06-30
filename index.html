@@ -278,6 +278,45 @@
       margin-top:1px;
     }
 
+    /* ===== CONTACT ===== */
+    .contact-section {
+      background: var(--card);
+      border:1px solid rgba(255,107,157,0.2);
+      border-radius:24px;
+      padding:36px 32px;
+      margin-bottom:32px;
+      box-shadow: 0 0 60px rgba(214,59,107,0.08);
+      text-align:center;
+    }
+    .contact-lead {
+      font-size:14px; color:var(--text-mid); line-height:1.9;
+      max-width:480px; margin:0 auto 28px;
+    }
+    .contact-buttons {
+      display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+    }
+    .btn-contact {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:13px 26px; border-radius:999px;
+      font-family:'Fredoka One',cursive; font-size:14px; letter-spacing:1px;
+      text-decoration:none; transition:all 0.15s; border:none; cursor:pointer;
+    }
+    .btn-contact-primary {
+      background: var(--grad);
+      color:#fff;
+      box-shadow:0 4px 0 var(--cherry), 0 6px 24px rgba(214,59,107,0.3);
+    }
+    .btn-contact-primary:hover { transform:translateY(-2px); box-shadow:0 6px 0 var(--cherry), 0 10px 32px rgba(214,59,107,0.4); }
+    .btn-contact-secondary {
+      background:transparent;
+      border:1.5px solid rgba(255,107,157,0.4) !important;
+      color:var(--pink);
+    }
+    .btn-contact-secondary:hover { background:rgba(255,107,157,0.1); border-color:var(--pink) !important; }
+    .contact-note {
+      margin-top:20px; font-size:11px; color:var(--text-mid);
+    }
+
     /* ===== FOOTER ===== */
     footer {
       text-align:center; padding:32px 24px;
@@ -429,6 +468,26 @@
           </button>
         </div>
       </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact-section">
+      <div class="section-title" style="justify-content:center;text-align:left">ゆめチームに相談する</div>
+      <p class="contact-lead">
+        「うまく生成できない」「自分の商品に合ったプロンプトを一緒に考えてほしい」<br>
+        そんなときは、ゆめチームに気軽に話しかけてください🍒
+      </p>
+      <div class="contact-buttons">
+        <a class="btn-contact btn-contact-primary"
+           href="https://twitter.com/yume_meltlog_" target="_blank" rel="noopener">
+          𝕏 DMで相談する
+        </a>
+        <a class="btn-contact btn-contact-secondary"
+           href="mailto:shop_yume@pinkyume.jp">
+          ✉ メールで問い合わせる
+        </a>
+      </div>
+      <p class="contact-note">返信は通常1〜2営業日以内です。お気軽にどうぞ！</p>
     </div>
 
   </main>
